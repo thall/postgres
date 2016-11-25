@@ -117,7 +117,9 @@ if [ "$1" = 'postgres' ]; then
 		echo
 	fi
 
-	exec gosu postgres "$@"
+	set -x
+	ENV_ARG=(${ENV_ARG[@]})
+	exec gosu postgres "$@" "${ENV_ARG[@]/#/-c}"
 fi
 
 exec "$@"
